@@ -50,7 +50,7 @@ namespace WebAPI
             {
                 options.AddPolicy("PermitirTodos", builder =>
                 {
-                    builder.WithOrigins() 
+                    builder.WithOrigins("*") 
                            .AllowAnyHeader()
                            .AllowAnyMethod();
                 });

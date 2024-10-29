@@ -1,32 +1,53 @@
-<div>
-  <h1>Green Leaves</h1>
+<div class="contenedor">
+
+  <div class="campo">
+    <h1 class="cabecera">Green Leaves</h1>
+    <img style="width: 130px; height: 100px; object-fit: cover;" src="hoja.png" alt="">
+  </div>
+
+  <div>
+    <div>
+      <label >Nombre</label>  
+      <input type="text" name="nombre" [(ngModel)]="TXTNombre" class="form-control"> 
+    </div>
+      <label >E-mail:</label>
+      <input type="text" name="email" [(ngModel)]="TXTEmail" class="form-control">
+    <div> 
+      <label >Teléfono:</label>
+      <input type="text" name="telefono" [(ngModel)]="TXTTelefono" class="form-control">
+    </div>
+    <div>
+      <label > Fecha:</label>
+      <input type="text" name="fecha" [(ngModel)]="TXTFecha" class="form-control">
+    </div>
+    <div>
+      <label > Ciudad y Estado:</label>
+      <input type="text" name="ciudad" [(ngModel)]="TXTLocacion" class="form-control">
+    </div>
+    <div>
+      <button (click)="EnviarDatos()" class="btn btn-outline-primary">Enviar</button>
+    </div>    
+  </div>
 </div>
 
-<div>
-  <div>
-    <label for="">Nombre</label>  
-    <input type="text" name="nombre" [(ngModel)]="TXTNombre" class="form-control"> 
+<!-- Botón para abrir el modal -->
+<button type="button" class="btn btn-primary" (click)="openModal()">Abrir Modal</button>
+
+<!-- Modal de Bootstrap -->
+<div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true" #modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="miModalLabel">Título del Modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Contenido del modal.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
+      </div>
+    </div>
   </div>
-    <label for="">E-mail:</label>
-    <input type="text" name="email" [(ngModel)]="TXTEmail" class="form-control">
-  <div> 
-    <label for="">Teléfono:</label>
-    <input type="text" name="telefono" [(ngModel)]="TXTTelefono" class="form-control">
-  </div>
-  <div>
-    <label for=""> Fecha:</label>
-    <input type="text" name="fecha" [(ngModel)]="TXTFecha" class="form-control">
-  </div>
-  <div>
-    <label for=""> Ciudad y Estado:</label>
-    <input type="text" name="ciudad" [(ngModel)]="TXTLocacion" class="form-control">
-  </div>
-  <div>
-    <button type="button" *ngIf="BTNEnviar"> Enviar </button>
-  </div>
-  
-  
-  
-  
-  
 </div>
