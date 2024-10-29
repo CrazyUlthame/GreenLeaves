@@ -18,11 +18,36 @@
     </div>
     <div>
       <label > Fecha:</label>
-      <input type="text" name="fecha" [(ngModel)]="TXTFecha" class="form-control">
+      <!--<input type="text" name="fecha" [(ngModel)]="TXTFecha" class="form-control">-->
+      <mat-form-field appearance="fill" class="dropdown">
+        <mat-label>Selecciona una fecha</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" placeholder="Fecha">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    
     </div>
-    <div>
-      <label > Ciudad y Estado:</label>
-      <input type="text" name="ciudad" [(ngModel)]="TXTLocacion" class="form-control">
+    <div class="dropdown">
+      <label > Localidad:</label>
+      <input
+        type="text"
+        [(ngModel)]="filterText"
+        (ngModelChange)="filterList()"
+        (focus)="toggleDropdown(true)"
+        placeholder="Ingrese una Localidad"
+      />
+    
+      <!-- Lista desplegable de opciones o mensaje de "No se encontraron resultados" -->
+      <ul *ngIf="showDropdown" class="dropdown-menu">
+        <ng-container *ngIf="filteredNombresCompletos.length > 0; else noResults">
+          <li *ngFor="let item of filteredNombresCompletos" (click)="selectItem(item)">
+            {{ item }}
+          </li>
+        </ng-container>
+        <ng-template #noResults>
+          <li class="no-results">No se encontraron resultados.</li>
+        </ng-template>
+      </ul>
     </div>
     <div>
       <button (click)="EnviarDatos()" class="btn btn-outline-primary">Enviar</button>
@@ -30,23 +55,40 @@
   </div>
 </div>
 
-<!-- Botón para abrir el modal -->
-<button type="button" class="btn btn-primary" (click)="openModal()">Abrir Modal</button>
 
-<!-- Modal de Bootstrap -->
+<!-- Modal Confirmación correcta -->
 <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true" #modal>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="miModalLabel">Título del Modal</h5>
+        <h5 class="modal-title" id="miModalLabel">Confirmación de Registro Correcto.</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Contenido del modal.
+        {{ResponseContactoUsuario}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal información erronea -->
+<div class="modal fade" id="miModalError" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true" #modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="miModalLabel">Ha ocurrido un error al momento de guardar los datos, favor de revisar los puntos siguientes.</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li *ngFor="let mensaje of ResponseContactoUsuarioError">{{ mensaje }}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

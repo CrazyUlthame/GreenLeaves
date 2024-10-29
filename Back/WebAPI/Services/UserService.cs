@@ -26,7 +26,7 @@ namespace WebAPI.Services
                     context.SaveChanges();
                 }
                 response.IsError = false;
-                response.Message = "Ok";
+                response.Message = "Información Registrada Correctamente";
             }
             catch(Exception ex)
             {

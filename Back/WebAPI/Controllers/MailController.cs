@@ -91,7 +91,7 @@ namespace WebAPI.Controllers
                 return BadRequest(res);
             }
 
-            return Ok(mail);
+            return Ok(res);
 
 
         }

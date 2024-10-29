@@ -18,11 +18,11 @@ namespace WebAPI.Models.Request
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
-        [Required(ErrorMessage = "El campo Ciudad es obligatorio")]
+        [Required(ErrorMessage = "El campo Localidad es obligatorio")]
         public string City { get; set; }
-        [Required(ErrorMessage = "El campo Estado es obligatorio")]
+        [Required(ErrorMessage = "El campo Localidad es obligatorio")]
         public string State { get; set; }
-        [Required(ErrorMessage = "El campo Pais es obligatorio")]
+        [Required(ErrorMessage = "El campo Localidad es obligatorio")]
         public string Country { get; set; }
     }
 }

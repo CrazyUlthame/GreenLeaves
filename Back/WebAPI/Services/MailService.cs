@@ -18,32 +18,30 @@ namespace WebAPI.Services
         public STRResponse SendEmail(string mail, string subject  ,string body, MailSettings mailSetting)
         {
             var response = new STRResponse();
+            using var client = new SmtpClient();
             try
             {
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress(mailSetting.Settings.Name, mailSetting.Settings.From));
                 message.To.Add(new MailboxAddress("", mail));
                 message.Subject = subject;
-
                 message.Body = new TextPart("html") { Text = body };
-
-                using var client = new SmtpClient();
-
+                
                 client.Connect("smtp.gmail.com", 587);
-
                 client.Authenticate(mailSetting.Settings.From, mailSetting.Settings.Pass);
-
-                client.Send(message);
-                client.Disconnect(true);
+                client.Send(message);                
 
                 response.IsError = false;
                 response.Message = "OK";
-
             }
             catch(Exception ex)
             {
                 response.IsError = true;
                 response.Message = ex.Message;
+            }
+            finally
+            {
+                client.Disconnect(true);
             }
             return response;
         }

@@ -57,7 +57,7 @@ namespace WebAPI.Controllers
                     int msg = 0;
                     var mail = new MailRequest();
                     do {
-                        mail.Body = msg == 0 ? $"<!doctype html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"utf-8\">\r\n  <title>Green Leaves</title>\r\n  <base href=\"/\">\r\n</head>\r\n    <body>\r\n        <div style=\"width: 50%;margin: 0 auto;\">\r\n            <div> \r\n                <label for=\"\">Estimado</label> <label style=\"font-weight: bold;\">{Data.Name},</label> \r\n            </div>\r\n            <br>\r\n            <div>\r\n                <label for=\"\">\r\n                    Hemos recibido sus datos y nos pondremos en contacto con usted en la \r\n                    brevedad posible. Enviaremos un correo con información a su cuenta: \r\n                </label>\r\n                <label style=\"font-weight: bold;\">{Data.Email}.</label>\r\n            </div>\r\n            <br>\r\n            <div style=\"text-align: right;\">\r\n                <p style=\"font-weight: bold;margin: 0;\">Atte.</p>\r\n                <p style=\"font-weight: bold; color: green;margin: 0;\">Green Leaves</p>\r\n                <p style=\"margin: 0;\">{Data.City + "," + Data.State + "," + Data.Country} a {Data.Date}</p>\r\n            </div>\r\n        </div>  \r\n    </body>\r\n</html>" : "hola mundo";
+                        mail.Body = msg == 0 ? $"<!doctype html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"utf-8\">\r\n  <title>Green Leaves</title>\r\n  <base href=\"/\">\r\n</head>\r\n    <body>\r\n        <div style=\"width: 50%;margin: 0 auto;\">\r\n            <div> \r\n                <label for=\"\">Estimado</label> <label style=\"font-weight: bold;\">{Data.Name},</label> \r\n            </div>\r\n            <br>\r\n            <div>\r\n                <label for=\"\">\r\n                    Hemos recibido sus datos y nos pondremos en contacto con usted en la \r\n                    brevedad posible. Enviaremos un correo con información a su cuenta: \r\n                </label>\r\n                <label style=\"font-weight: bold;\">{Data.Email}.</label>\r\n            </div>\r\n            <br>\r\n            <div style=\"text-align: right;\">\r\n                <p style=\"font-weight: bold;margin: 0;\">Atte.</p>\r\n                <p style=\"font-weight: bold; color: green;margin: 0;\">Green Leaves</p>\r\n                <p style=\"margin: 0;\">{Data.City + "," + Data.State + "," + Data.Country} a {DateToString(Data.Date)}</p>\r\n            </div>\r\n        </div>  \r\n    </body>\r\n</html>" : "hola mundo";
                         var toMAilJson = _mailSettings.Send.Mail;
                         mail.ToEmail = msg == 0 ? Data.Email : toMAilJson;
                         mail.Subject = "Confirmación de datos registrados.";
@@ -79,6 +79,12 @@ namespace WebAPI.Controllers
             
 
             return response;
+        }
+
+        private string DateToString(DateTime date)
+        {
+            string formattedDate = date.ToString("d 'de' MMMM 'del' yyyy", new System.Globalization.CultureInfo("es-ES"));
+            return formattedDate;
         }
 
         private async Task<IActionResult> SendMailConfirmation(MailRequest request)
